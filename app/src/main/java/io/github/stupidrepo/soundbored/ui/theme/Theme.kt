@@ -1,12 +1,14 @@
 package io.github.stupidrepo.soundbored.ui.theme
 
 import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,17 +37,22 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun FridaManagerTheme(
+fun SoundboredTheme(
+    isDarkMode: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            dynamicDarkColorScheme(context)
+            when {
+                isDarkMode -> dynamicDarkColorScheme(context)
+                else -> dynamicLightColorScheme(context)
+            }
         }
 
-        else -> DarkColorScheme
+        isDarkMode -> DarkColorScheme
+        else -> LightColorScheme
     }
 
     MaterialTheme(
@@ -62,7 +69,7 @@ fun AndroidAnnoyance(
     bottomBar: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {
-    FridaManagerTheme {
+    SoundboredTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),

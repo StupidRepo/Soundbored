@@ -5,8 +5,9 @@ interface GenericSound {
     val name: String
     val color: String
 
-    val url: String
+    val soundURL: String
+    val fileName: String
 
     val categoryId: Int?
-    val categoryName: String
+    val categoryName: String?
 }

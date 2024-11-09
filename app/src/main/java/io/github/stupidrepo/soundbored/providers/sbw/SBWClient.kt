@@ -1,4 +1,4 @@
-package io.github.stupidrepo.soundbored.retrofit.apis.soundbuttonsworld
+package io.github.stupidrepo.soundbored.providers.sbw
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
