@@ -14,7 +14,8 @@ class SBWProvider : IProvider {
                 override val name: String = it.name
                 override val color: String = it.color
 
-                override val soundURL: String = "https://soundbuttonsworld.com/uploads/${it.fileName}"
+                override val soundURL: String =
+                    "https://soundbuttonsworld.com/uploads/${it.fileName}"
                 override val fileName: String = it.fileName
 
                 override val categoryId: Int? = null
@@ -27,7 +28,7 @@ class SBWProvider : IProvider {
         val queryParams = mapOf("page" to page.toString(), "pageSize" to limit.toString())
 
         val res = fetchData(SBWClient.instance, { getData(it) }, queryParams)
-        if(res != null) {
+        if (res != null) {
             return mapSounds(res.data)
         } else {
             throw Exception("Error when searching!")
@@ -39,10 +40,11 @@ class SBWProvider : IProvider {
     }
 
     override fun searchSounds(query: String, page: Int?, limit: Int?): List<GenericSound> {
-        val queryParams = mapOf("page" to page.toString(), "pageSize" to limit.toString(), "q" to query)
+        val queryParams =
+            mapOf("page" to page.toString(), "pageSize" to limit.toString(), "q" to query)
 
         val res = fetchData(SBWClient.instance, { search(it) }, queryParams)
-        if(res != null) {
+        if (res != null) {
             return mapSounds(res.data)
         } else {
             throw Exception("Error when searching!")

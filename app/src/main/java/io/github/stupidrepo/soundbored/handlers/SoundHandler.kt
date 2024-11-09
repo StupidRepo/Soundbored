@@ -1,4 +1,4 @@
-package io.github.stupidrepo.soundbored
+package io.github.stupidrepo.soundbored.handlers
 
 import android.content.Context
 import android.media.MediaPlayer

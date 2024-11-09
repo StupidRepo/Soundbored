@@ -16,16 +16,14 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import io.github.stupidrepo.soundbored.downloading
+import io.github.stupidrepo.soundbored.handlers.downloading
 import io.github.stupidrepo.soundbored.ui.components.BottomBar
 import io.github.stupidrepo.soundbored.ui.navigation.BottomBarNav
-import java.io.File
 
 @Composable
 fun RootScreen(

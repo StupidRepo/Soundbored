@@ -14,6 +14,6 @@ fun <T, R> fetchData(apiClient: T, getDataCall: T.(Map<String, String>) -> Call<
     return if (res.isSuccessful) {
         res.body()
     } else {
-        throw Exception(res.errorBody()?.string())
+        throw Exception(res.errorBody()?.string() ?: "Failed to fetch data")
     }
 }

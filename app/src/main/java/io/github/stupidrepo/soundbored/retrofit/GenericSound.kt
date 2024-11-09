@@ -10,4 +10,8 @@ interface GenericSound {
 
     val categoryId: Int?
     val categoryName: String?
+
+    fun isFavourited(): Boolean {
+        return false
+    }
 }
