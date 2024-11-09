@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FridaManager"
+rootProject.name = "Soundbored"
 include(":app")
  

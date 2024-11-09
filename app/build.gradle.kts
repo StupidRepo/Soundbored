@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace = "stupidrepo.fridamanager"
+    namespace = "io.github.stupidrepo.soundbored"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "stupidrepo.fridamanager"
+        applicationId = "io.github.stupidrepo.soundbored"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -79,5 +79,7 @@ dependencies {
     implementation(libs.libsu.service)
     implementation(libs.libsu.nio)
 
-    implementation("androidx.compose.material:material-icons-extended:1.7.3")
+    implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
