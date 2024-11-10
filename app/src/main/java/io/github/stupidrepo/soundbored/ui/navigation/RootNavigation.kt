@@ -1,5 +1,7 @@
 package io.github.stupidrepo.soundbored.ui.navigation
 
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
@@ -19,7 +21,9 @@ internal fun RootAppNavigation(
     NavHost(
         navController = topMostRootNavHostController,
         startDestination = Routes.Main.route, // if (!isSetupComplete) Routes.Welcome.route else Routes.Main.route,
-        modifier = modifier
+        modifier = modifier,
+        enterTransition = { slideInVertically { it } },
+        exitTransition = { slideOutVertically { it } }
     ) {
 //        welcomeComposable(
 //            navController = navHostController,

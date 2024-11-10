@@ -1,5 +1,7 @@
 package io.github.stupidrepo.soundbored.ui.navigation
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
@@ -18,7 +20,9 @@ fun BottomBarNav(
     NavHost(
         navHostController,
         Routes.Nav.Soundboard.route,
-        modifier
+        modifier,
+        enterTransition = { slideInHorizontally { it } },
+        exitTransition = { slideOutHorizontally { it } }
     ) {
         soundboardComposable(navHostController)
         searchComposable(navHostController)

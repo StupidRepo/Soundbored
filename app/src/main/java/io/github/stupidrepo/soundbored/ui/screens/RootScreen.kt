@@ -33,7 +33,7 @@ fun RootScreen(
 ) {
     Scaffold(
         bottomBar = { BottomBar(navHostController = navHostController) },
-        topBar = { TopBar(topMostRootNavHostController) }
+        topBar = { TopBar(topMostRootNavHostController, navHostController) }
 //        floatingActionButton = { FABulous(childNavController = childNavController, parentNavController = parentNavController) }
     ) { padding ->
         BottomBarNav(
