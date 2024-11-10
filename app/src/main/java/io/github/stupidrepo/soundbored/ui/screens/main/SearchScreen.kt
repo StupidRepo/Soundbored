@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import io.github.stupidrepo.soundbored.currentProvider
 import io.github.stupidrepo.soundbored.handlers.play
-import io.github.stupidrepo.soundbored.providers.Providers
 import io.github.stupidrepo.soundbored.retrofit.GenericSound
 import io.github.stupidrepo.soundbored.ui.components.SoundboardGrid
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +59,7 @@ fun SearchScreen() {
 
         Spacer(Modifier.width(8.dp))
 
-        SoundboardGrid(sounds, null, {}) {
+        SoundboardGrid(sounds, {}) {
             play(it, ctx)
         }
     }

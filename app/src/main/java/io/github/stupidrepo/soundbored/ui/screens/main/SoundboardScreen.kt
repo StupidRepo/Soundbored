@@ -66,7 +66,7 @@ fun SoundboardScreen() {
             fetch()
         }
     }, state = state, modifier = Modifier.fillMaxSize()) {
-        SoundboardGrid(sounds = sounds, title = "Popular Sounds", onBottomReached = {}) {
+        SoundboardGrid(sounds = sounds, onBottomReached = {}) {
             play(it, ctx)
         }
     }

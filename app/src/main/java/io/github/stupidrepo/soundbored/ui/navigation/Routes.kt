@@ -12,15 +12,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 // Code stolen from:
 // https://github.com/polodarb/GMS-Flags/blob/master/app/src/main/java/ua/polodarb/gmsflags/ui/navigation/AppNavigation.kt#L61-L89
 // Thanks, polodarb!
-sealed class Routes(var route: String) {
-    data object Welcome : Routes("welcome")
-    data object Main : Routes("main")
-    data object Settings: Routes("settings")
+sealed class Routes(var route: String, var description: String) {
+    data object Welcome : Routes("welcome", "Welcome!")
+    data object Main : Routes("main", "Main page.")
+    data object Settings: Routes("settings", "Settings.")
 
-    internal sealed class Nav(route: String) : Routes(route) {
-        data object Soundboard : Routes("soundboard")
-        data object Search : Routes("search")
-        data object Favourites : Routes("fav")
+    internal sealed class Nav(route: String, description: String) : Routes(route, description) {
+        data object Soundboard : Routes("soundboard", "View popular sounds here.")
+        data object Search : Routes("search", "Search for sounds.")
+        data object Favourites : Routes("fav", "View your favourite sounds. " +
+                "If you have played these sounds before, you can play them offline!")
     }
 }
 
@@ -53,3 +54,12 @@ sealed class NavBarItem(
 }
 
 val navBarItems = listOf(NavBarItem.Soundboard, NavBarItem.Search, NavBarItem.Favourites)
+
+fun getRouteDescription(route: String?): String {
+    return when (route) {
+        Routes.Nav.Soundboard.route -> Routes.Nav.Soundboard.description
+        Routes.Nav.Search.route -> Routes.Nav.Search.description
+        Routes.Nav.Favourites.route -> Routes.Nav.Favourites.description
+        else -> ""
+    }
+}
