@@ -11,8 +11,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.github.stupidrepo.soundbored.currentProvider
 import io.github.stupidrepo.soundbored.handlers.play
-import io.github.stupidrepo.soundbored.providers.Providers
 import io.github.stupidrepo.soundbored.retrofit.GenericSound
 import io.github.stupidrepo.soundbored.ui.components.SoundboardGrid
 import kotlinx.coroutines.CoroutineScope
@@ -21,8 +22,6 @@ import kotlinx.coroutines.launch
 
 private var isRefreshing = mutableStateOf(false)
 private var sounds = mutableStateListOf<GenericSound>()
-
-private var provider = mutableStateOf(Providers.providers[0])
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,12 +36,23 @@ fun SoundboardScreen() {
 
         try {
             sounds.clear()
-            sounds.addAll(provider.value.getSounds())
+            sounds.addAll(currentProvider.value.getSounds())
+
+            isRefreshing.value = false
         } catch (e: Exception) {
+            ctx.mainExecutor.execute {
+                MaterialAlertDialogBuilder(ctx)
+                    .setTitle("Error")
+                    .setMessage("Failed to fetch sounds: $e")
+                    .setPositiveButton("OK") { _, _ ->
+                        run {
+                            isRefreshing.value = false
+                        }
+                    }
+                    .show()
+            }
             Log.e(TAG, "Failed to fetch sounds: $e")
         }
-
-        isRefreshing.value = false
     }
 
     LaunchedEffect(true) {

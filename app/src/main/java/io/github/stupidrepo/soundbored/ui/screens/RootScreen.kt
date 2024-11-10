@@ -23,14 +23,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import io.github.stupidrepo.soundbored.handlers.downloading
 import io.github.stupidrepo.soundbored.ui.components.BottomBar
+import io.github.stupidrepo.soundbored.ui.components.TopBar
 import io.github.stupidrepo.soundbored.ui.navigation.BottomBarNav
 
 @Composable
 fun RootScreen(
+    topMostRootNavHostController: NavHostController,
     navHostController: NavHostController = rememberNavController()
 ) {
     Scaffold(
         bottomBar = { BottomBar(navHostController = navHostController) },
+        topBar = { TopBar(topMostRootNavHostController) }
 //        floatingActionButton = { FABulous(childNavController = childNavController, parentNavController = parentNavController) }
     ) { padding ->
         BottomBarNav(

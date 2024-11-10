@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import io.github.stupidrepo.soundbored.currentProvider
 import io.github.stupidrepo.soundbored.handlers.play
 import io.github.stupidrepo.soundbored.providers.Providers
 import io.github.stupidrepo.soundbored.retrofit.GenericSound
@@ -26,8 +27,6 @@ import io.github.stupidrepo.soundbored.ui.components.SoundboardGrid
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-private val provider = Providers.providers[0]
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +46,7 @@ fun SearchScreen() {
                 onSearch = {
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
-                            sounds = provider.searchSounds(searchQuery)
+                            sounds = currentProvider.value.searchSounds(searchQuery)
                         } catch (e: Exception) {
                             Log.e(TAG, "Failed to search for sounds: $e")
                         }
