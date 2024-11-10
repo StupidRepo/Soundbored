@@ -1,35 +1,23 @@
 package io.github.stupidrepo.soundbored.ui.navigation
 
-import android.widget.Toast
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.topjohnwu.superuser.Shell
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import io.github.stupidrepo.soundbored.ui.screens.RootScreen
-import io.github.stupidrepo.soundbored.ui.screens.intro.WelcomeScreen
+import io.github.stupidrepo.soundbored.ui.screens.settings.SettingsScreen
 
 @Composable
 internal fun RootAppNavigation(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController,
+    topMostRootNavHostController: NavHostController,
 //    isSetupComplete: Boolean,
 //    onSetupComplete: () -> Unit
 ) {
     NavHost(
-        navController = navHostController,
+        navController = topMostRootNavHostController,
         startDestination = Routes.Main.route, // if (!isSetupComplete) Routes.Welcome.route else Routes.Main.route,
         modifier = modifier
     ) {
@@ -38,7 +26,10 @@ internal fun RootAppNavigation(
 //            onSetupComplete = onSetupComplete
 //        )
         mainComposable(
-            navHostController = navHostController
+            topMostRootNavHostController = topMostRootNavHostController
+        )
+        settingsComposable(
+            topMostRootNavHostController = topMostRootNavHostController
         )
     }
 }
@@ -80,11 +71,21 @@ internal fun RootAppNavigation(
 //}
 
 private fun NavGraphBuilder.mainComposable(
-    navHostController: NavHostController
+    topMostRootNavHostController: NavHostController
 ) {
     composable(
         route = Routes.Main.route
     ) {
-        RootScreen()
+        RootScreen(topMostRootNavHostController)
+    }
+}
+
+private fun NavGraphBuilder.settingsComposable(
+    topMostRootNavHostController: NavHostController
+) {
+    composable(
+        route = Routes.Settings.route
+    ) {
+        SettingsScreen(topMostRootNavHostController)
     }
 }
