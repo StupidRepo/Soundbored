@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             AndroidAnnoyance {
                 val navHostController = rememberNavController()
                 RootAppNavigation(
-                    navHostController = navHostController,
+                    topMostRootNavHostController = navHostController,
 //                    isSetupComplete = setupComplete,
 //                    onSetupComplete = { setupComplete = true },
                 )
