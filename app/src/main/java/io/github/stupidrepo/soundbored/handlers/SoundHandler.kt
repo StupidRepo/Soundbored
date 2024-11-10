@@ -2,6 +2,7 @@ package io.github.stupidrepo.soundbored.handlers
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import io.github.stupidrepo.soundbored.retrofit.GenericSound
 import kotlinx.coroutines.CoroutineScope
@@ -37,15 +38,21 @@ fun play(sound: GenericSound, ctx: Context) {
     mediaPlayer.value?.release()
 
     CoroutineScope(Dispatchers.Main).launch {
-        val file = File(ctx.cacheDir, sound.fileName)
-        if (!file.exists()) {
-            downloadSound(sound.soundURL, sound.fileName, ctx)
-        }
+        try {
+            val file = File(ctx.cacheDir, sound.fileName)
+            if (!file.exists()) {
+                downloadSound(sound.soundURL, sound.fileName, ctx)
+            }
 
-        mediaPlayer.value = MediaPlayer().apply {
-            setDataSource(file.absolutePath)
-            setOnPreparedListener { start() }
-            prepareAsync()
+            mediaPlayer.value = MediaPlayer().apply {
+                setDataSource(file.absolutePath)
+                setOnPreparedListener { start() }
+                prepareAsync()
+            }
+        } catch(e: Exception) {
+            ctx.mainExecutor.execute {
+                Toast.makeText(ctx, "Failed to play! $e", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
