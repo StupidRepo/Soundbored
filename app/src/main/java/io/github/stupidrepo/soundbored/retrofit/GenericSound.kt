@@ -1,17 +1,18 @@
 package io.github.stupidrepo.soundbored.retrofit
 
-interface GenericSound {
-    val id: Int
-    val name: String
-    val color: String
+import android.content.Context
+import io.github.stupidrepo.soundbored.SoundboredApplication
+import kotlinx.serialization.Serializable
 
-    val soundURL: String
-    val fileName: String
+@Serializable
+data class GenericSound(
+    val id: Int,
+    val name: String,
+    val color: String,
 
-    val categoryId: Int?
+    val soundURL: String,
+    val fileName: String,
+
+    val categoryId: Int?,
     val categoryName: String?
-
-    fun isFavourited(): Boolean {
-        return false
-    }
-}
+)
