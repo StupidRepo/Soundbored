@@ -84,4 +84,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation(kotlin("reflect"))
 }
