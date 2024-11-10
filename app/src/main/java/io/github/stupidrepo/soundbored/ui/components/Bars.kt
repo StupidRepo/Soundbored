@@ -1,12 +1,13 @@
 package io.github.stupidrepo.soundbored.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import io.github.stupidrepo.soundbored.ui.navigation.Routes
+import io.github.stupidrepo.soundbored.ui.navigation.getRouteDescription
 import io.github.stupidrepo.soundbored.ui.navigation.navBarItems
 
 @Composable
@@ -41,10 +43,22 @@ fun BottomBar(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopBar(
-    topMostRootNavHostController: NavHostController
+    topMostRootNavHostController: NavHostController,
+    navHostController: NavHostController
 ) {
     TopAppBar(title = {
-        Text("Soundbored")
+        val currentBackStackEntry by navHostController.currentBackStackEntryAsState()
+        val currentRoute = currentBackStackEntry?.destination?.route
+        Column {
+            Text(
+                "Soundbored",
+                style = typography.titleMedium
+            )
+            Text(
+                getRouteDescription(currentRoute),
+                style = typography.bodySmall
+            )
+        }
     }, actions = {
         IconButton(onClick = {
             topMostRootNavHostController.navigate(Routes.Settings.route)
