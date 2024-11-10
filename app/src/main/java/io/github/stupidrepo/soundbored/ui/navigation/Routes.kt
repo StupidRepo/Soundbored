@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 sealed class Routes(var route: String) {
     data object Welcome : Routes("welcome")
     data object Main : Routes("main")
+    data object Settings: Routes("settings")
 
     internal sealed class Nav(route: String) : Routes(route) {
         data object Soundboard : Routes("soundboard")

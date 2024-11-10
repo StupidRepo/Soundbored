@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,24 +29,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.stupidrepo.soundbored.SoundboredApplication
 import io.github.stupidrepo.soundbored.retrofit.GenericSound
 import io.github.stupidrepo.soundbored.providers.sbw.Sound
 
 fun getColour(name: String): Color = when(name) {
-    "red" -> Color.Red
-    "blue" -> Color.Blue
-    "green" -> Color.Green
-    "yellow" -> Color.Yellow
-    "purple" -> Color.Magenta
-    "pink" -> Color.Magenta
-//            "orange" -> Color.Yellow
-//            "brown" -> Color.Gray
-//            "black" -> Color.Gray
-    "white" -> Color.White
+    "red" -> Color.hsv(0f, 0.8f, 0.8f)
+    "blue" -> Color.hsv(240f, 0.8f, 0.8f)
+    "green" -> Color.hsv(120f, 0.8f, 0.8f)
+    "yellow" -> Color.hsv(60f, 0.8f, 0.8f)
+    "purple" -> Color.hsv(300f, 0.8f, 0.8f)
+    "pink" -> Color.hsv(330f, 0.8f, 0.8f)
+    "orange" -> Color.hsv(30f, 0.8f, 0.8f)
+    "brown" -> Color.hsv(30f, 0.8f, 0.4f)
+    "black" -> Color.hsv(0f, 0f, .35f)
+    "white" -> Color.hsv(0f, 0f, 1f)
     else -> Color.Gray
 }
 
@@ -70,6 +73,8 @@ fun OurCard(modifier: Modifier = Modifier, borderStroke: BorderStroke, content: 
 // Card
 @Composable
 fun SoundboardCard(sound: GenericSound, onExpand: (GenericSound) -> Unit, onPlay: () -> Unit) {
+    val ap = (LocalContext.current.applicationContext) as SoundboredApplication
+
     OurCard(
         modifier = Modifier
             .clickable(onClick = { onExpand(sound) })
@@ -91,6 +96,23 @@ fun SoundboardCard(sound: GenericSound, onExpand: (GenericSound) -> Unit, onPlay
 
         // make sound title
         Text(sound.name, overflow = TextOverflow.Ellipsis, maxLines = 2, textAlign = TextAlign.Center)
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        IconButton(onClick = {
+            if(ap.userDataHandler.isFavourite(sound)) {
+                ap.userDataHandler.removeFavourite(sound)
+            } else {
+                ap.userDataHandler.addFavourite(sound)
+            }
+        }, modifier = Modifier.size(28.dp)) {
+            Icon(
+                imageVector = if(ap.userDataHandler.isFavourite(sound)) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                contentDescription = "Favourite Icon",
+                tint = MaterialTheme.colorScheme.inverseSurface,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     }
 }
 
@@ -143,17 +165,17 @@ fun SoundboardCard(sound: GenericSound, onExpand: (GenericSound) -> Unit, onPlay
 @Preview
 fun SoundboardCardPreview() {
     SoundboardCard(
-        sound = object : GenericSound {
-            override val id: Int = 318
-            override val name: String = "Gangster's paradise Gangster's paradise Gangster's paradise Gangster's paradise PARADISE"
-            override val color: String = "red"
+        sound = GenericSound(
+            id = 318,
+            name = "Gangster's paradise Gangster's paradise Gangster's paradise Gangster's paradise PARADISE",
+            color = "red",
 
-            override val soundURL: String = "https://soundbuttonsworld.com/upload/ced71b4a-4f58-4ae3-95fb-34dcc5935631.mp3"
-            override val fileName: String = "ced71b4a-4f58-4ae3-95fb-34dcc5935631.mp3"
+            soundURL = "https://soundbuttonsworld.com/upload/ced71b4a-4f58-4ae3-95fb-34dcc5935631.mp3",
+            fileName = "ced71b4a-4f58-4ae3-95fb-34dcc5935631.mp3",
 
-            override val categoryId: Int? = null
-            override val categoryName: String? = null
-        },
+            categoryId = null,
+            categoryName = null
+        ),
         onExpand = {},
     ) {}
 }
