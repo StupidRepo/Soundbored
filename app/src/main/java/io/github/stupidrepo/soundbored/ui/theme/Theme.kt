@@ -75,11 +75,12 @@ fun AndroidAnnoyance(
                 modifier = Modifier.fillMaxSize(),
                 topBar = topBar,
                 bottomBar = bottomBar
-            ) { value ->
+            ) { e ->
 //                Box(modifier = modifier
 //                    .fillMaxSize()
 //                    .padding(value)
 //                ) {
+                    var r = e;
                     content()
 //                }
             }
